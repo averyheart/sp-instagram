@@ -7,8 +7,8 @@ const CHARACTER  = "luca";
 const DATA_URL   = `${REPO_BASE}/characters/${CHARACTER}/posts.json`;
 const IMG_BASE   = `${REPO_BASE}/characters/${CHARACTER}/images`;
 
-// Swap `placeholder` for the real Saucepan companion ID when ready
-const COMPANION_URL = "https://saucepan.ai/companion/placeholder";
+// Swap `placeholder` for the real Saucepan companion ID when ready: https://saucepan.ai/companion/placeholder
+const COMPANION_URL = "https://saucepan.ai/companion/d0a3ed92-0aa8-4f70-a9a4-7a9cebf96739";
 
 // ─── DAILY STORY SEED (resets at UTC/GMT midnight) ───────────────────────────
 function seededRandom(seed) {
