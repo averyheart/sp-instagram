@@ -8,5 +8,29 @@
     "following": 183
   },
   "highlights": [],
-  "posts": []
+  "posts": [
+    {
+      "id": 2,
+      "src": "your-image-filename.jpg",
+      "caption": "Your caption here.",
+      "location": "Location or null",
+      "likes": 12000,
+      "commentCount": 84,
+      "date": "1d",
+      "comments": [
+        {
+          "user": "@username1",
+          "text": "First comment here."
+        },
+        {
+          "user": "@username2",
+          "text": "Second comment here."
+        },
+        {
+          "user": "@username3",
+          "text": "Third comment here."
+        }
+      ]
+    }
+  ]
 }
