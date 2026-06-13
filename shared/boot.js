@@ -8,8 +8,8 @@ import ReactDOM from "https://esm.sh/react-dom@18/client";
 const e = React.createElement;
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const REPO_BASE     = "https://raw.githubusercontent.com/averyheart/sp-companion-ig/main";
-const COMPANION_URL = "https://saucepan.ai/companion/placeholder";
+const REPO_BASE      = "https://raw.githubusercontent.com/averyheart/sp-companion-ig/main";
+const COMPANION_BASE = "https://saucepan.ai/companion/";
 
 // Detect character from URL path — /characters/luca/ → "luca"
 const pathParts = window.location.pathname.split("/").filter(Boolean);
@@ -176,7 +176,7 @@ const CSS = `
   .lb-actions { display:flex; align-items:center; gap:14px; margin-bottom:10px; }
   .lb-actions button { background:none; border:none; color:#ede9e3; cursor:pointer; padding:0; display:flex; align-items:center; transition:transform 0.15s; }
   .lb-actions button:hover { transform:scale(1.12); }
-  .lb-likes   { font-size:13px; font-weight:600; margin-bottom:5px; }
+  .lb-likes   { color:#ede9e3; font-size:13px; font-weight:600; margin-bottom:5px; }
   .lb-caption { font-size:13px; color:#b0aaa3; line-height:1.55; margin-bottom:4px; }
   .lb-caption strong { color:#ede9e3; font-weight:600; }
   .lb-date    { font-size:10.5px; color:#3a3632; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:12px; }
@@ -297,9 +297,10 @@ function InstagramProfile() {
       .catch(err => { setError(err.message); setLoading(false); });
   }, []);
 
-  const profile    = data?.profile    || {};
-  const posts      = data?.posts      || [];
-  const highlights = data?.highlights || [];
+  const profile     = data?.profile    || {};
+  const posts       = data?.posts      || [];
+  const highlights  = data?.highlights || [];
+  const companionUrl = COMPANION_BASE + (profile.companion_id || "");
   const dailyStoryImages = getDailyStoryImages(posts, 3);
   const openIdx = posts.findIndex(p => p.id === openPost?.id);
 
@@ -320,7 +321,7 @@ function InstagramProfile() {
     e("div", { className:"ig" },
       // Topbar
       e("div", { className:"ig-top" },
-        e("a", { href: COMPANION_URL, className:"ig-top-back" }, e(BackArrow)),
+        e("a", { href: companionUrl, className:"ig-top-back" }, e(BackArrow)),
         e("span", { className:"ig-top-name" }, profile.username || "—"),
         e("button", { className:"ig-top-dots" }, e(DotsIcon))
       ),
@@ -359,7 +360,7 @@ function InstagramProfile() {
               className: `ig-btn ${following ? "ig-btn-foff" : "ig-btn-fon"}`,
               onClick: () => setFollowing(f => !f)
             }, following ? "Following" : "Follow"),
-            e("a", { href: COMPANION_URL, className:"ig-btn ig-btn-msg" }, "Message")
+            e("a", { href: companionUrl, className:"ig-btn ig-btn-msg" }, "Message")
           )
         ),
 
@@ -415,7 +416,7 @@ function InstagramProfile() {
             e("div", { className:"lb-actions" },
               e("button", { onClick: () => setLikedPosts(p => ({ ...p, [openPost.id]: !p[openPost.id] })) }, e(HeartIcon, { filled: !!likedPosts[openPost.id] })),
               e("button", null, e(CommentIcon)),
-              e("button", null, e(ShareIcon)),
+              e("a", { href: companionUrl, target:"_blank", rel:"noopener noreferrer", style:{ colour:"inherit", display:"flex", alignItems:"center" } }, e(ShareIcon)),
               e("div", { style:{ flex:1 } }),
               e("button", { onClick: () => setSavedPosts(p => ({ ...p, [openPost.id]: !p[openPost.id] })) }, e(BookmarkIcon, { filled: !!savedPosts[openPost.id] }))
             ),
