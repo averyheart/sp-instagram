@@ -21,8 +21,8 @@
     <h1>Companions</h1>
     <p>Select a profile to view.</p>
     <div class="list">
-      <a href="./luca/">Luca Bergren</a>
-      <!-- Add new characters here as: <a href="./charactername/">Character Name</a> -->
+      <a href="./characters/luca/">Luca Bergren</a>
+      <!-- Add new characters here as: <a href="./characters/charactername/">Character Name</a> -->
     </div>
   </div>
 </body>
