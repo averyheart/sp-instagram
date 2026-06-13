@@ -11,7 +11,7 @@
   "posts": [
     {
       "id": 2,
-      "src": "your-image-filename.jpg",
+      "src": "Luca Bergren_1.png",
       "caption": "Your caption here.",
       "location": "Location or null",
       "likes": 12000,
