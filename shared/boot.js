@@ -1,7 +1,7 @@
 // boot.js — shared React entry point
-// Reads ?character= from the script src to know which profile to load.
-// Add a new character by creating a new folder with an index.html
-// pointing to this file with ?character=yourcharactername
+// Reads the character name from the URL path automatically.
+// e.g. /characters/luca/ → loads luca's profile.
+// Add a new character by creating characters/newname/index.html — no other changes needed.
 
 import React from "https://esm.sh/react@18";
 import ReactDOM from "https://esm.sh/react-dom@18/client";
@@ -13,12 +13,12 @@ const html = htm.bind(React.createElement);
 const REPO_BASE     = "https://raw.githubusercontent.com/averyheart/sp-companion-ig/main";
 const COMPANION_URL = "https://saucepan.ai/companion/placeholder";
 
-// Detect character from script src query string
-const scriptSrc  = document.currentScript?.src || "";
-const urlParams  = new URL(scriptSrc).searchParams;
-const CHARACTER  = urlParams.get("character") || "luca";
-const DATA_URL   = `${REPO_BASE}/characters/${CHARACTER}/posts.json`;
-const IMG_BASE   = `${REPO_BASE}/characters/${CHARACTER}/images`;
+// Detect character from URL path — /characters/luca/ → "luca"
+const pathParts = window.location.pathname.split("/").filter(Boolean);
+const charsIdx  = pathParts.indexOf("characters");
+const CHARACTER = charsIdx !== -1 ? pathParts[charsIdx + 1] : "luca";
+const DATA_URL  = `${REPO_BASE}/characters/${CHARACTER}/posts.json`;
+const IMG_BASE  = `${REPO_BASE}/characters/${CHARACTER}/images`;
 
 function imgSrc(src) {
   if (!src) return "";
