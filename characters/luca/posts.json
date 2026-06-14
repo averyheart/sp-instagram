@@ -13,9 +13,9 @@
     {
     "id": "h1",
     "label": "Matchday",
-    "cover": "matchday-cover.jpg",
+    "cover": "Luca_4.jpeg",
     "images": [
-      "matchday-01.jpg",
+      "Luca_4.jpeg",
       "matchday-02.jpg",
       "matchday-03.jpg"
     ]
@@ -23,10 +23,10 @@
   {
     "id": "h2",
     "label": "Training",
-    "cover": "training-cover.jpg",
+    "cover": "Luca_1.jpeg",
     "images": [
-      "training-01.jpg",
-      "training-02.jpg"
+      "Luca_1.jpeg",
+      "Luca_2.jpeg"
     ]
   },
   {
@@ -44,7 +44,7 @@
   "posts": [
     {
       "id": 1,
-      "src": "Luca Bergren_1.png",
+      "src": "Luca_2.jpeg",
       "caption": "Your caption here.",
       "location": "Location or null",
       "likes": 12000,
@@ -67,7 +67,7 @@
     },
     {
       "id": 2,
-      "src": "Luca Bergren_1.png",
+      "src": "Luca_3.jpeg",
       "caption": "Your caption here.",
       "location": "Location or null",
       "likes": 12000,
@@ -90,7 +90,7 @@
     },
     {
       "id": 3,
-      "src": "Luca Bergren_1.png",
+      "src": "Luca_4.jpeg",
       "caption": "Your caption here.",
       "location": "Location or null",
       "likes": 12000,
