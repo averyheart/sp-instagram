@@ -1,6 +1,6 @@
 # sp-instagram
 
-Character Instagram profile pages for the Saucepan AI companion platform. Each character has a self-contained profile page styled after Instagram, fetching content dynamically from this repository.
+Companion Instagram profile pages for the Saucepan AI platform. Each companion has a self-contained profile page styled after Instagram, fetching content dynamically from this repository.
 
 ## Structure
 
