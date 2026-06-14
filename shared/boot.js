@@ -8,7 +8,7 @@ import ReactDOM from "https://esm.sh/react-dom@18/client";
 const e = React.createElement;
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const REPO_BASE      = "https://raw.githubusercontent.com/averyheart/sp-companion-ig/main";
+const REPO_BASE      = "https://raw.githubusercontent.com/averyheart/sp-instagram/main";
 const COMPANION_BASE = "https://saucepan.ai/companion/";
 
 // Detect character from URL path — /characters/luca/ → "luca"
@@ -192,6 +192,11 @@ const CSS = `
   .lb-nav.prev { left:-44px; }
   .lb-nav.next { right:-44px; }
   @media(max-width:560px){ .lb-nav.prev{left:8px} .lb-nav.next{right:8px} }
+  .dropdown-wrap { position:relative; }
+  .dropdown-menu { position:absolute; top:100%; right:0; margin-top:6px; background:#1e1e1e; border:1px solid #2c2c2c; border-radius:10px; overflow:hidden; min-width:180px; z-index:30; animation:fadeIn 0.15s ease; }
+  .dropdown-item { display:block; width:100%; padding:11px 16px; background:none; border:none; color:#ede9e3; font-family:'DM Sans',sans-serif; font-size:13px; text-align:left; cursor:pointer; transition:background 0.15s; }
+  .dropdown-item:hover { background:#2a2a2a; }
+  .dropdown-item.muted { color:#6a6560; }
 `;
 
 // ─── STORY VIEWER ─────────────────────────────────────────────────────────────
@@ -226,9 +231,10 @@ function StoryViewer({ images, label, avatar, username, onClose }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [index, images.length]);
 
-  return e("div", { style:{ position:"fixed", inset:0, background:"#000", zIndex:300, display:"flex", flexDirection:"column" } },
+  return e("div", { style:{ position:"fixed", inset:0, background:"#000", zIndex:300, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center" } },
+    e("div", { style:{ position:"relative", width:"min(480px,100vw)", height:"min(calc(min(480px,100vw) * 16/9), 100vh)", display:"flex", flexDirection:"column", background:"#000" } },
     // Progress bars
-    e("div", { style:{ display:"flex", gap:3, padding:"12px 12px 0" } },
+    e("div", { style:{ display:"flex", gap:3, padding:"12px 12px 0", flexShrink:0 } },
       images.map((_, i) =>
         e("div", { key:i, style:{ flex:1, height:2, background:"rgba(255,255,255,0.2)", borderRadius:2, overflow:"hidden" } },
           e("div", { style:{ height:"100%", background:"#fff", borderRadius:2, width: i < index ? "100%" : i === index ? `${progress}%` : "0%" } })
@@ -236,8 +242,8 @@ function StoryViewer({ images, label, avatar, username, onClose }) {
       )
     ),
     // Header
-    e("div", { style:{ display:"flex", alignItems:"center", gap:10, padding:"10px 14px" } },
-      e("img", { src: imgSrc(avatar), alt: username, style:{ width:34, height:34, borderRadius:"50%", objectFit:"cover" } }),
+    e("div", { style:{ display:"flex", alignItems:"center", gap:10, padding:"10px 14px", flexShrink:0 } },
+      e("img", { src: imgSrc(avatar), alt: username, style:{ width:34, height:34, borderRadius:"50%", objectFit:"cover", objectPosition:"top" } }),
       e("div", { style:{ flex:1 } },
         e("div", { style:{ fontSize:13, fontWeight:600, color:"#fff", fontFamily:"'DM Sans',sans-serif" } }, username),
         e("div", { style:{ fontSize:11, color:"rgba(255,255,255,0.5)", fontFamily:"'DM Sans',sans-serif" } }, label)
@@ -250,7 +256,7 @@ function StoryViewer({ images, label, avatar, username, onClose }) {
       e("div", { onClick: () => { clearInterval(timer.current); if (index > 0) setIndex(i => i - 1); }, style:{ position:"absolute", inset:"0 60% 0 0", cursor:"pointer" } }),
       e("div", { onClick: () => { clearInterval(timer.current); if (index < images.length - 1) setIndex(i => i + 1); else onClose(); }, style:{ position:"absolute", inset:"0 0 0 40%", cursor:"pointer" } })
     )
-  );
+  ));
 }
 
 // ─── SKELETON ─────────────────────────────────────────────────────────────────
@@ -284,7 +290,8 @@ function InstagramProfile() {
   const [data, setData]               = React.useState(null);
   const [loading, setLoading]         = React.useState(true);
   const [error, setError]             = React.useState(null);
-  const [following, setFollowing]     = React.useState(false);
+  const [dotsOpen, setDotsOpen]       = React.useState(false);
+  const commentsRef                   = React.useRef(null);
   const [likedPosts, setLikedPosts]   = React.useState({});
   const [savedPosts, setSavedPosts]   = React.useState({});
   const [openPost, setOpenPost]       = React.useState(null);
@@ -323,7 +330,14 @@ function InstagramProfile() {
       e("div", { className:"ig-top" },
         e("a", { href: companionUrl, className:"ig-top-back" }, e(BackArrow)),
         e("span", { className:"ig-top-name" }, profile.username || "—"),
-        e("button", { className:"ig-top-dots" }, e(DotsIcon))
+        e("div", { className:"dropdown-wrap" },
+          e("button", { className:"ig-top-dots", onClick: () => setDotsOpen(o => !o) }, e(DotsIcon)),
+          dotsOpen && e("div", { className:"dropdown-menu" },
+            e("button", { className:"dropdown-item", onClick: () => { navigator.clipboard.writeText(window.location.href); setDotsOpen(false); } }, "Copy profile link"),
+            e("a", { className:"dropdown-item", href: companionUrl, target:"_blank", rel:"noopener noreferrer", style:{ textDecoration:"none" } }, "Share profile"),
+            e("button", { className:"dropdown-item muted", onClick: () => setDotsOpen(false) }, "Cancel")
+          )
+        )
       ),
 
       loading && e("div", { className:"sk" }, e(Skeleton)),
@@ -344,7 +358,7 @@ function InstagramProfile() {
               onClick: () => dailyStoryImages.length && setStoryViewer({ images: dailyStoryImages, label:"Today" })
             },
               e("div", { className:"ig-av-inner" },
-                profile.avatar && e("img", { src: imgSrc(profile.avatar), alt: profile.name })
+                profile.avatar && e("img", { src: imgSrc(profile.avatar), alt: profile.name, style:{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" } })
               )
             ),
             e("div", { className:"ig-stats" },
@@ -406,7 +420,7 @@ function InstagramProfile() {
             e("div", { className:"lb-post-uname" }, profile.username, profile.verified && e(VerifiedIcon)),
             openPost.location && e("div", { className:"lb-post-loc" }, e(LocationIcon), " ", openPost.location)
           ),
-          e("button", { className:"lb-post-dots" }, e(DotsIcon))
+          e("button", { className:"lb-post-dots", style:{ opacity:0 } }, e(DotsIcon))
         ),
 
         e("img", { className:"lb-img", src: imgSrc(openPost.src), alt: openPost.caption, style:{ objectPosition:"top" } }),
@@ -415,7 +429,7 @@ function InstagramProfile() {
           e("div", { className:"lb-body" },
             e("div", { className:"lb-actions" },
               e("button", { onClick: () => setLikedPosts(p => ({ ...p, [openPost.id]: !p[openPost.id] })) }, e(HeartIcon, { filled: !!likedPosts[openPost.id] })),
-              e("button", null, e(CommentIcon)),
+              e("button", { onClick: () => commentsRef.current?.scrollIntoView({ behavior:"smooth" }) }, e(CommentIcon)),
               e("a", { href: companionUrl, target:"_blank", rel:"noopener noreferrer", style:{ color:"#ede9e3", display:"flex", alignItems:"center", textDecoration:"none" } }, e(ShareIcon)),
               e("div", { style:{ flex:1 } }),
               e("button", { onClick: () => setSavedPosts(p => ({ ...p, [openPost.id]: !p[openPost.id] })) }, e(BookmarkIcon, { filled: !!savedPosts[openPost.id] }))
@@ -424,7 +438,7 @@ function InstagramProfile() {
             e("div", { className:"lb-caption" }, e("strong", null, profile.username, " "), openPost.caption),
             e("div", { className:"lb-date" }, openPost.date, " ago")
           ),
-          e("div", { className:"lb-comments" },
+          e("div", { className:"lb-comments", ref: commentsRef },
             (openPost.comments || []).map((c, i) =>
               e("div", { className:"lb-comment", key: i },
                 e("div", { className:"lb-c-av" }, c.user.replace("@","").slice(0,2).toUpperCase()),
