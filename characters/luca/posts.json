@@ -3,7 +3,7 @@
     "companion_id": "d0a3ed92-0aa8-4f70-a9a4-7a9cebf96739",
     "name": "Luca Bergren",
     "username": "@lucabergren",
-    "avatar": "Luca Bergren_1.png",
+    "avatar": "Luca_Avatar.jpeg",
     "bio": "Veridian FC · Forward · 🇸🇪",
     "verified": true,
     "followers": "2.4M",
@@ -43,6 +43,29 @@
   ],
   "posts": [
     {
+      "id": 1,
+      "src": "Luca Bergren_1.png",
+      "caption": "Your caption here.",
+      "location": "Location or null",
+      "likes": 12000,
+      "commentCount": 84,
+      "date": "1d",
+      "comments": [
+        {
+          "user": "@username1",
+          "text": "First comment here."
+        },
+        {
+          "user": "@username2",
+          "text": "Second comment here."
+        },
+        {
+          "user": "@username3",
+          "text": "Third comment here."
+        }
+      ]
+    },
+    {
       "id": 2,
       "src": "Luca Bergren_1.png",
       "caption": "Your caption here.",
@@ -64,6 +87,29 @@
           "text": "Third comment here."
         }
       ]
-    }
+    },
+    {
+      "id": 3,
+      "src": "Luca Bergren_1.png",
+      "caption": "Your caption here.",
+      "location": "Location or null",
+      "likes": 12000,
+      "commentCount": 84,
+      "date": "1d",
+      "comments": [
+        {
+          "user": "@username1",
+          "text": "First comment here."
+        },
+        {
+          "user": "@username2",
+          "text": "Second comment here."
+        },
+        {
+          "user": "@username3",
+          "text": "Third comment here."
+        }
+      ]
+    },
   ]
 }
