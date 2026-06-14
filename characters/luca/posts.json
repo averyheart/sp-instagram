@@ -9,7 +9,38 @@
     "followers": "2.4M",
     "following": 183
   },
-  "highlights": [],
+  "highlights": [
+    {
+    "id": "h1",
+    "label": "Matchday",
+    "cover": "matchday-cover.jpg",
+    "images": [
+      "matchday-01.jpg",
+      "matchday-02.jpg",
+      "matchday-03.jpg"
+    ]
+  },
+  {
+    "id": "h2",
+    "label": "Training",
+    "cover": "training-cover.jpg",
+    "images": [
+      "training-01.jpg",
+      "training-02.jpg"
+    ]
+  },
+  {
+    "id": "h3",
+    "label": "Sweden",
+    "cover": "sweden-cover.jpg",
+    "images": [
+      "sweden-01.jpg",
+      "sweden-02.jpg",
+      "sweden-03.jpg",
+      "sweden-04.jpg"
+    ]
+  }
+  ],
   "posts": [
     {
       "id": 2,
