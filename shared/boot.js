@@ -335,7 +335,6 @@ function InstagramProfile() {
           e("button", { className:"ig-top-dots", onClick: () => setDotsOpen(o => !o) }, e(DotsIcon)),
           dotsOpen && e("div", { className:"dropdown-menu" },
             e("button", { className:"dropdown-item", onClick: () => { navigator.clipboard.writeText(window.location.href); setDotsOpen(false); } }, "Copy profile link"),
-            e("a", { className:"dropdown-item", href: companionUrl, target:"_blank", rel:"noopener noreferrer", style:{ textDecoration:"none" } }, "Share profile"),
             e("button", { className:"dropdown-item muted", onClick: () => setDotsOpen(false) }, "Cancel")
           )
         )
@@ -420,8 +419,7 @@ function InstagramProfile() {
           e("div", { className:"lb-post-info" },
             e("div", { className:"lb-post-uname" }, profile.username, profile.verified && e(VerifiedIcon)),
             openPost.location && e("div", { className:"lb-post-loc" }, e(LocationIcon), " ", openPost.location)
-          ),
-          e("button", { className:"lb-post-dots", style:{ opacity:0 } }, e(DotsIcon))
+          )
         ),
 
         e("img", { className:"lb-img", src: imgSrc(openPost.src), alt: openPost.caption, style:{ objectPosition:"top" } }),
