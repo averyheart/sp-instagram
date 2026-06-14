@@ -316,8 +316,8 @@ function InstagramProfile() {
     const onKey = ev => {
       if (!openPost) return;
       if (ev.key === "Escape")     setOpenPost(null);
-      if (ev.key === "ArrowLeft"  && openIdx > 0)              setOpenPost(posts[openIdx - 1]);
-      if (ev.key === "ArrowRight" && openIdx < posts.length-1) setOpenPost(posts[openIdx + 1]);
+      if (ev.key === "ArrowLeft")  openIdx > 0 ? setOpenPost(posts[openIdx - 1]) : setOpenPost(null);
+      if (ev.key === "ArrowRight") openIdx < posts.length-1 ? setOpenPost(posts[openIdx + 1]) : setOpenPost(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -410,8 +410,8 @@ function InstagramProfile() {
     // Lightbox
     openPost && e("div", { className:"lb-bg", onClick: () => setOpenPost(null) },
       e("div", { className:"lb", onClick: ev => ev.stopPropagation() },
-        openIdx > 0             && e("button", { className:"lb-nav prev", onClick: () => setOpenPost(posts[openIdx-1]) }, e(ChevLeft)),
-        openIdx < posts.length-1 && e("button", { className:"lb-nav next", onClick: () => setOpenPost(posts[openIdx+1]) }, e(ChevRight)),
+        e("button", { className:"lb-nav prev", onClick: () => openIdx > 0 ? setOpenPost(posts[openIdx-1]) : setOpenPost(null) }, e(ChevLeft)),
+        e("button", { className:"lb-nav next", onClick: () => openIdx < posts.length-1 ? setOpenPost(posts[openIdx+1]) : setOpenPost(null) }, e(ChevRight)),
 
         // Post header
         e("div", { className:"lb-post-header" },
