@@ -154,7 +154,7 @@ const CSS = `
   .ig-cell { aspect-ratio:1; overflow:hidden; cursor:pointer; position:relative; background:#181818; }
   .ig-cell img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform 0.3s,filter 0.3s; }
   .ig-cell:hover img { transform:scale(1.05); filter:brightness(0.7); }
-  .ig-cell-over { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:14px; opacity:0; transition:opacity 0.22s; font-size:12.5px; font-weight:600; color:#fff; }
+  .ig-cell-over { position:absolute; inset:0; display:flex; align-items:centre; justify-content:centre; gap:14px; opacity:0; transition:opacity 0.22s; font-size:12.5px; font-weight:600; colour:#fff; }
   .ig-cell:hover .ig-cell-over { opacity:1; }
   .ig-cell-stat { display:flex; align-items:center; gap:5px; }
   .ig-empty { grid-column:1/-1; padding:60px 18px; text-align:center; color:#333; font-size:13px; }
@@ -162,7 +162,7 @@ const CSS = `
   .sk { animation:pulse 1.4s ease-in-out infinite; }
   .lb-bg { position:fixed; inset:0; background:rgba(0,0,0,0.9); backdrop-filter:blur(10px); z-index:100; display:flex; align-items:center; justify-content:center; animation:fadeIn 0.16s ease; }
   .lb { background:#161616; border-radius:14px; width:min(430px,95vw); max-height:94vh; overflow:hidden; display:flex; flex-direction:column; position:relative; border:1px solid rgba(255,255,255,0.07); animation:slideUp 0.2s ease; }
-  .lb-post-header { display:flex; align-items:center; gap:10px; padding:12px 14px; flex-shrink:0; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .lb-post-header { display:flex; align-items:centre; gap:10px; padding:12px 14px; flex-shrink:0; border-bottom:1px solid rgba(255,255,255,0.05); }
   .lb-post-av { width:34px; height:34px; border-radius:50%; object-fit:cover; flex-shrink:0; background:#1a1a1a; }
   .lb-post-info { flex:1; min-width:0; }
   .lb-post-uname { font-size:13px; font-weight:600; color:#ede9e3; display:flex; align-items:center; gap:4px; }
@@ -290,6 +290,7 @@ function InstagramProfile() {
   const [data, setData]               = React.useState(null);
   const [loading, setLoading]         = React.useState(true);
   const [error, setError]             = React.useState(null);
+  const [following, setFollowing]     = React.useState(false);
   const [dotsOpen, setDotsOpen]       = React.useState(false);
   const commentsRef                   = React.useRef(null);
   const [likedPosts, setLikedPosts]   = React.useState({});
